@@ -1,0 +1,35 @@
+.header-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: black;
+}
+.header-section {
+  height: 61px;
+  width: 85%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.nav-link {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+.nav-link-active {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+  font-weight: bold;
+}
+.nav-link-logout {
+  color: white;
+  border: 1px solid blue;
+  background-color: blue;
+  border-radius: 10px;
+  padding: 7px 19px;
+  cursor: pointer;
+  font-size: 15px;
+}

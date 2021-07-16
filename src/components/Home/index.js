@@ -1,17 +1,31 @@
 import {Component} from 'react'
-import ReactFileReader from 'react-file-reader'
+import Loader from 'react-loader-spinner'
+import Header from '../Header'
 import './index.css'
 
 class Home extends Component {
   state = {
     error: false,
-    errorText: '',
+    blogData: [],
+    isFileChosen: false,
+    isLoading: false,
   }
 
-  componentDidMount() {}
-
-  handleFiles = files => {
-    console.log(files)
+  sendJsonBlogData = async () => {
+    this.setState({isLoading: true})
+    const {blogData} = this.state
+    const options = {
+      method: 'POST',
+      body: JSON.stringify(blogData),
+      headers: {
+        'Content-type': 'application/json',
+      },
+    }
+    const response = await fetch('http://localhost:3001/saveblogs/', options)
+    const data = await response.json()
+    this.setState({isLoading: false})
+    console.log(data)
+    console.log('received')
   }
 
   handleChange = event => {
@@ -22,32 +36,52 @@ class Home extends Component {
       try {
         jsonData = JSON.parse(e.target.result)
         console.log(typeof jsonData)
+        this.setState({
+          blogData: jsonData,
+          isFileChosen: true,
+          error: false,
+        })
         console.log(jsonData[0])
       } catch (error) {
         console.log(error)
+        this.setState({error: true})
       }
     }
   }
 
   render() {
-    const {error, errorText} = this.state
+    const {error, isFileChosen, isLoading} = this.state
     return (
       <>
-        <p>sai</p>
-        <ReactFileReader handleFiles={this.handleFiles} fileTypes=".json">
-          <button className="btn" type="button">
-            Upload
-          </button>
-        </ReactFileReader>
-        <h1>Upload Json file - Example</h1>
-
-        <input
-          type="file"
-          onChange={this.handleChange}
-          accept="application/JSON"
-        />
-        <br />
-        {error && <p>{errorText}</p>}
+        <Header />
+        <div className="home-container">
+          <div className="home-section">
+            <h1>UPLOAD JSON FILE</h1>
+            <input
+              type="file"
+              onChange={this.handleChange}
+              accept="application/JSON"
+            />
+            <br />
+            {error && (
+              <p className="home-error">please choose the correct json file</p>
+            )}
+            {isFileChosen && (
+              <button
+                type="button"
+                className="home-submit-button"
+                onClick={this.sendJsonBlogData}
+                disabled={isLoading}
+              >
+                {isLoading ? (
+                  <Loader type="Oval" color="white" height="30" width="50" />
+                ) : (
+                  'Submit'
+                )}
+              </button>
+            )}
+          </div>
+        </div>
       </>
     )
   }

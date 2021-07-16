@@ -21,7 +21,7 @@ class NotFound extends Component {
             </p>
             <Link to="/">
               <button className="not-found-home-redirect-button" type="button">
-                Netflix Home
+                Home
               </button>
             </Link>
             <p className="not-found-error">

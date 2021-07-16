@@ -1,0 +1,25 @@
+.blog-item-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  background: white;
+  margin: 10px 0px;
+  padding: 6px 21px;
+  box-shadow: 5px 7px 13px 2px grey;
+}
+.blog-item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.blog-item-title {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.blog-item-body {
+  margin-top: 0;
+}
+.blog-item-user-id {
+  font-weight: 600;
+  margin-bottom: 0;
+}

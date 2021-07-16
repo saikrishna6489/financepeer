@@ -1,0 +1,7 @@
+.blogs-container {
+  padding-top: 80px;
+  background-color: #d9d4d46b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
