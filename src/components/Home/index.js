@@ -9,22 +9,32 @@ class Home extends Component {
     blogData: [],
     isFileChosen: false,
     isLoading: false,
+    successMsg: false,
+    failureMsg: false,
   }
 
   sendJsonBlogData = async () => {
-    this.setState({isLoading: true})
+    this.setState({isLoading: true, successMsg: false, failureMsg: false})
     const {blogData} = this.state
+    const stBlogData = JSON.stringify(blogData)
     const options = {
       method: 'POST',
-      body: JSON.stringify(blogData),
+      body: stBlogData,
       headers: {
         'Content-type': 'application/json',
       },
     }
-    const response = await fetch('http://localhost:3001/saveblogs/', options)
-    const data = await response.json()
-    this.setState({isLoading: false})
-    console.log(data)
+    const response = await fetch(
+      'https://sai-nodejs-finance.herokuapp.com/saveblogs/',
+      options,
+    )
+    if (response.ok === true) {
+      this.setState({isLoading: false, successMsg: true, failureMsg: false})
+    } else {
+      this.setState({isLoading: false, successMsg: false, failureMsg: true})
+    }
+
+    console.log(response)
     console.log('received')
   }
 
@@ -50,7 +60,7 @@ class Home extends Component {
   }
 
   render() {
-    const {error, isFileChosen, isLoading} = this.state
+    const {error, isFileChosen, isLoading, successMsg, failureMsg} = this.state
     return (
       <>
         <Header />
@@ -65,6 +75,12 @@ class Home extends Component {
             <br />
             {error && (
               <p className="home-error">please choose the correct json file</p>
+            )}
+            {successMsg && (
+              <p className="home-success">Submitted successfully</p>
+            )}
+            {failureMsg && (
+              <p className="home-error">Not Submitted Try Again</p>
             )}
             {isFileChosen && (
               <button

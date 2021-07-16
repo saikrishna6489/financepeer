@@ -37,7 +37,10 @@ class Login extends Component {
       },
     }
     console.log(options.body)
-    const response = await fetch('http://localhost:3001/login/', options)
+    const response = await fetch(
+      'https://sai-nodejs-finance.herokuapp.com/login/',
+      options,
+    )
     console.log(response)
 
     if (response.ok === true) {

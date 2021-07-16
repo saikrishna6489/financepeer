@@ -13,7 +13,9 @@ class Blogs extends Component {
   }
 
   getBlogData = async () => {
-    const response = await fetch('http://localhost:3001/blog/')
+    const response = await fetch(
+      'https://sai-nodejs-finance.herokuapp.com/blog/',
+    )
     const data = await response.json()
     this.setState({blogData: data})
     console.log(data)
