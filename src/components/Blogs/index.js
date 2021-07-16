@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import BlogItem from '../BlogItem'
 import './index.css'
 
 class Blogs extends Component {
@@ -6,10 +7,20 @@ class Blogs extends Component {
     error: false,
   }
 
+  data = []
+
   componentDidMount() {}
 
   render() {
-    return <p>sai</p>
+    return (
+      <div className="blogs-container">
+        <div className="blogs-section">
+          {this.data.map(eachBlog => (
+            <BlogItem itemData={eachBlog} />
+          ))}
+        </div>
+      </div>
+    )
   }
 }
 export default Blogs
